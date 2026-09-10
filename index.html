@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DISTRI GLOBAL 2024, C.A. · Sistema de Comisiones y Cobranza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0f172a;
+      --primary-hover: #1e293b;
+      --accent: #2563eb;
+      --accent-green: #16a34a;
+      --bg-main: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-main); }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+    /* Top Navigation */
+    header.nav-top {
+      background: var(--primary);
+      color: #fff;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-title { font-size: 16px; font-weight: 700; }
+    .brand-sub { font-size: 10px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; }
+
+    .nav-tabs { display: flex; gap: 8px; }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    .nav-btn.active { color: #fff; background: var(--accent); }
+
+    /* Layout Main */
+    .container { max-width: 1280px; margin: 28px auto; padding: 0 24px; }
+    .section-page { display: none; }
+    .section-page.active { display: block; }
+
+    /* Cards & Layout Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 400px; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    
+    @media (max-width: 1024px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+
+    /* Forms & Inputs */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .in { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; background: #fff; }
+    .in:focus { outline: none; border-color: var(--accent); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Payment Badges */
+    .pay-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pay-zelle { background: #eddcfc; color: #6b21a8; }
+    .pay-usdt { background: #dcfce7; color: #15803d; }
+    .pay-usd { background: #e0f2fe; color: #0369a1; }
+    .pay-bs { background: #fef3c7; color: #b45309; }
+
+    /* Dynamic Tables */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { background: #f1f5f9; text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
+    .data-table td { padding: 12px; border-bottom: 1px solid var(--border); }
+    .data-table tr:hover { background: #fafafa; }
+
+    /* Buttons */
+    .btn { padding: 10px 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 13px; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-danger { background: #ef4444; color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); }
+
+    /* Stats KPI */
+    .kpi-box { padding: 16px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); }
+    .kpi-val { font-size: 24px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="nav-top">
+    <div class="brand">
+      <div>
+        <div class="brand-title">DISTRI GLOBAL 2024, C.A.</div>
+        <div class="brand-sub">SISTEMA DE COMISIONES & COBRANZA</div>
+      </div>
+    </div>
+    <nav class="nav-tabs">
+      <button class="nav-btn active" onclick="showPage('page-calc')">Calculadora</button>
+      <button class="nav-btn" onclick="showPage('page-products')">Matriz de Productos</button>
+      <button class="nav-btn" onclick="showPage('page-history')">Historial & Pagos</button>
+      <button class="nav-btn" onclick="showPage('page-config')">GitHub / Data</button>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <!-- PAGE 1: CALCULADORA Y REGISTRO -->
+    <div id="page-calc" class="section-page active">
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <div class="card-title">Registrar Operación de Venta</div>
+            
+            <div class="row-2">
+              <div class="form-group">
+                <label>Vendedor</label>
+                <input class="in" id="vendedor" placeholder="Nombre del vendedor">
+              </div>
+              <div class="form-group">
+                <label>Nº Factura / Cobro</label>
+                <input class="in" id="numFactura" placeholder="FACT-001">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Cliente / Razón Social</label>
+              <input class="in" id="cliente" placeholder="Nombre del cliente">
+            </div>
+
+            <div class="form-group">
+              <label>Seleccionar Producto de la Matriz</label>
+              <select class="in" id="selectProdMatriz" onchange="applyProductMatriz()">
+                <!-- Opciones dinámicas -->
+              </select>
+            </div>
+
+            <div class="row-2">
+              <div class="form-group">
+                <label>Monto Bruto ($)</label>
+                <input type="number" class="in mono" id="montoBruto" value="1000" oninput="calculate()">
+              </div>
+              <div class="form-group">
+                <label>% Descuento Producto</label>
+                <input type="number" class="in mono" id="pctDescuento" value="0" oninput="calculate()">
+              </div>
+            </div>
+
+            <div class="row-2">
+              <div class="form-group">
+                <label>% Flete (Deducción Fija)</label>
+                <input type="number" class="in mono" id="pctFlete" value="5" readonly style="background:#f1f5f9">
+              </div>
+              <div class="form-group">
+                <label>% Comisión Vendedor</label>
+                <input type="number" class="in mono" id="pctComision" value="5" oninput="calculate()">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Método / Canal de Pago</label>
+              <select class="in" id="metodoPago">
+                <option value="ZELLE">ZELLE</option>
+                <option value="USDT">USDT (Binance / Crypto)</option>
+                <option value="DOLARES $">EFECTIVO DÓLARES ($)</option>
+                <option value="BS">BOLÍVARES (BS)</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; margin-top:10px;" onclick="saveOperation()">Guardar Registro de Cobranza</button>
+          </div>
+        </div>
+
+        <!-- Sidebar Resumen -->
+        <div>
+          <div class="card" style="position:sticky; top:84px;">
+            <div class="card-title">Cálculo de Liquidación</div>
+            <div style="background:#0f172a; color:#fff; padding:16px; border-radius:8px; margin-bottom:16px;">
+              <span style="font-size:11px; color:#94a3b8;" class="mono">COMISIÓN FINAL A PAGAR</span>
+              <div style="font-size:28px; font-weight:700;" class="grotesk">$<span id="resComisionUSD">0.00</span></div>
+            </div>
+
+            <div style="font-size:13px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>Monto Bruto:</span>
+                <b class="mono">$<span id="resBruto">0.00</span></b>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>(-) Descuento:</span>
+                <b class="mono">-$<span id="resDescuento">0.00</span></b>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>(-) Flete (5%):</span>
+                <b class="mono">-$<span id="resFlete">0.00</span></b>
+              </div>
+              <hr style="margin:12px 0; border:none; border-top:1px dashed var(--border);">
+              <div style="display:flex; justify-content:space-between; font-weight:700;">
+                <span>Base Imponible:</span>
+                <b class="mono">$<span id="resBase">0.00</span></b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: MATRIZ DINÁMICA DE PRODUCTOS -->
+    <div id="page-products" class="section-page">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div class="card-title" style="margin:0;">Matriz Dinámica de Productos y Descuentos</div>
+          <button class="btn btn-primary" onclick="promptAddProduct()">+ Agregar Producto</button>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Código / Ítem</th>
+              <th>Descripción Producto</th>
+              <th>% Descuento Base</th>
+              <th>% Comisión Asignada</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tblMatrizBody">
+            <!-- Renderizado Dinámico -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAGE 3: HISTORIAL & MÉTODOS DE PAGO -->
+    <div id="page-history" class="section-page">
+      <div class="grid-3" style="margin-bottom:20px;">
+        <div class="kpi-box">
+          <div style="font-size:11px; color:var(--text-muted);">TOTAL COBRADO</div>
+          <div class="kpi-val">$<span id="kpiTotalVentas">0.00</span></div>
+        </div>
+        <div class="kpi-box">
+          <div style="font-size:11px; color:var(--text-muted);">TOTAL COMISIONES</div>
+          <div class="kpi-val" style="color:var(--accent-green);">$<span id="kpiTotalComisiones">0.00</span></div>
+        </div>
+        <div class="kpi-box">
+          <div style="font-size:11px; color:var(--text-muted);">OPERACIONES</div>
+          <div class="kpi-val" id="kpiNumOps">0</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Registro General de Pagos y Ventas</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Factura</th>
+              <th>Vendedor</th>
+              <th>Cliente</th>
+              <th>Monto Neto</th>
+              <th>Método Pago</th>
+              <th>Comisión ($)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tblHistorialBody">
+            <!-- Renderizado dinámico -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAGE 4: CONFIGURACIÓN / GITHUB -->
+    <div id="page-config" class="section-page">
+      <div class="card">
+        <div class="card-title">Conexión GitHub & Respaldos</div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+          Puedes exportar tus registros en formato JSON para subirlos a tu repositorio de GitHub, o guardar el proyecto para desplegarlo en **GitHub Pages**.
+        </p>
+
+        <div style="display:flex; gap:12px;">
+          <button class="btn btn-primary" onclick="exportDataJSON()">Exportar Copia de Seguridad (JSON)</button>
+          <button class="btn btn-outline" onclick="importDataJSON()">Cargar Copia de Seguridad</button>
+          <button class="btn btn-danger" onclick="clearAllStorage()">Restablecer Base de Datos Local</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Estado inicial de la matriz de productos
+    let matrizProductos = JSON.parse(localStorage.getItem('dg_matriz')) || [
+      { id: 1, name: 'Línea Esmaltes (Especial)', desc: 35, com: 5 },
+      { id: 2, name: 'Línea Esmaltes (Volumen)', desc: 40, com: 4 },
+      { id: 3, name: 'Mercancía General', desc: 20, com: 5 },
+      { id: 4, name: 'Línea Promocional / Oferta', desc: 50, com: 3 }
+    ];
+
+    // Historial de ventas
+    let historialVentas = JSON.parse(localStorage.getItem('dg_ventas')) || [];
+
+    // Cambiar Navegación
+    function showPage(pageId) {
+      document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Inicializar app
+    function init() {
+      renderMatrizSelect();
+      renderMatrizTable();
+      renderHistorial();
+      calculate();
+    }
+
+    // Renderizar Selector de Matriz
+    function renderMatrizSelect() {
+      const sel = document.getElementById('selectProdMatriz');
+      sel.innerHTML = '<option value="">-- Seleccionar de la Matriz --</option>';
+      matrizProductos.forEach(p => {
+        sel.innerHTML += `<option value="${p.id}">${p.name} (Desc: ${p.desc}% | Com: ${p.com}%)</option>`;
+      });
+    }
+
+    function applyProductMatriz() {
+      const id = document.getElementById('selectProdMatriz').value;
+      const item = matrizProductos.find(p => p.id == id);
+      if (item) {
+        document.getElementById('pctDescuento').value = item.desc;
+        document.getElementById('pctComision').value = item.com;
+        calculate();
+      }
+    }
+
+    // Cálculos dinámicos
+    function calculate() {
+      const bruto = parseFloat(document.getElementById('montoBruto').value) || 0;
+      const descPct = parseFloat(document.getElementById('pctDescuento').value) || 0;
+      const fletePct = 5;
+      const comPct = parseFloat(document.getElementById('pctComision').value) || 0;
+
+      const descMonto = bruto * (descPct / 100);
+      const sub = bruto - descMonto;
+      const fleteMonto = sub * (fletePct / 100);
+      const base = sub - fleteMonto;
+      const comision = base * (comPct / 100);
+
+      document.getElementById('resBruto').textContent = bruto.toFixed(2);
+      document.getElementById('resDescuento').textContent = descMonto.toFixed(2);
+      document.getElementById('resFlete').textContent = fleteMonto.toFixed(2);
+      document.getElementById('resBase').textContent = base.toFixed(2);
+      document.getElementById('resComisionUSD').textContent = comision.toFixed(2);
+    }
+
+    // Guardar Operación
+    function saveOperation() {
+      const op = {
+        id: Date.now(),
+        factura: document.getElementById('numFactura').value || 'S/N',
+        vendedor: document.getElementById('vendedor').value || 'General',
+        cliente: document.getElementById('cliente').value || 'Cliente',
+        bruto: parseFloat(document.getElementById('montoBruto').value) || 0,
+        metodo: document.getElementById('metodoPago').value,
+        comision: parseFloat(document.getElementById('resComisionUSD').textContent) || 0
+      };
+
+      historialVentas.push(op);
+      localStorage.setItem('dg_ventas', JSON.stringify(historialVentas));
+      renderHistorial();
+      alert('Operación registrada exitosamente.');
+    }
+
+    // Renderizar Historial
+    function renderHistorial() {
+      const tbody = document.getElementById('tblHistorialBody');
+      tbody.innerHTML = '';
+
+      let totalV = 0, totalC = 0;
+
+      historialVentas.forEach((v, index) => {
+        totalV += v.bruto;
+        totalC += v.comision;
+
+        let badgeClass = 'pay-usd';
+        if (v.metodo === 'ZELLE') badgeClass = 'pay-zelle';
+        if (v.metodo === 'USDT') badgeClass = 'pay-usdt';
+        if (v.metodo === 'BS') badgeClass = 'pay-bs';
+
+        tbody.innerHTML += `
+          <tr>
+            <td class="mono">${v.factura}</td>
+            <td>${v.vendedor}</td>
+            <td>${v.cliente}</td>
+            <td class="mono">$${v.bruto.toFixed(2)}</td>
+            <td><span class="pay-badge ${badgeClass}">${v.metodo}</span></td>
+            <td class="mono" style="color:var(--accent-green); font-weight:700;">$${v.comision.toFixed(2)}</td>
+            <td><button class="btn btn-outline" onclick="deleteVenta(${index})" style="padding:4px 8px; font-size:11px;">Eliminar</button></td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('kpiTotalVentas').textContent = totalV.toFixed(2);
+      document.getElementById('kpiTotalComisiones').textContent = totalC.toFixed(2);
+      document.getElementById('kpiNumOps').textContent = historialVentas.length;
+    }
+
+    function deleteVenta(index) {
+      historialVentas.splice(index, 1);
+      localStorage.setItem('dg_ventas', JSON.stringify(historialVentas));
+      renderHistorial();
+    }
+
+    // Renderizar Tabla de Matriz de Productos
+    function renderMatrizTable() {
+      const tbody = document.getElementById('tblMatrizBody');
+      tbody.innerHTML = '';
+      matrizProductos.forEach((p, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td class="mono">PROD-00${p.id}</td>
+            <td><b>${p.name}</b></td>
+            <td class="mono">${p.desc}%</td>
+            <td class="mono">${p.com}%</td>
+            <td>
+              <button class="btn btn-outline" onclick="deleteProducto(${index})" style="padding:4px 8px; font-size:11px;">Eliminar</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function promptAddProduct() {
+      const name = prompt('Nombre del Producto / Categoría:');
+      const desc = parseFloat(prompt('% Descuento Base:'));
+      const com = parseFloat(prompt('% Comisión Asignada:'));
+
+      if (name && !isNaN(desc) && !isNaN(com)) {
+        matrizProductos.push({ id: Date.now(), name, desc, com });
+        localStorage.setItem('dg_matriz', JSON.stringify(matrizProductos));
+        renderMatrizTable();
+        renderMatrizSelect();
+      }
+    }
+
+    function deleteProducto(index) {
+      matrizProductos.splice(index, 1);
+      localStorage.setItem('dg_matriz', JSON.stringify(matrizProductos));
+      renderMatrizTable();
+      renderMatrizSelect();
+    }
+
+    // Exportar Datos a JSON
+    function exportDataJSON() {
+      const data = { matriz: matrizProductos, ventas: historialVentas };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `distri_global_data_${Date.now()}.json`;
+      a.click();
+    }
+
+    function clearAllStorage() {
+      if (confirm('¿Deseas restablecer todos los datos almacenados?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
