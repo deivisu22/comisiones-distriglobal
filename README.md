@@ -1,2 +1,2 @@
 # com-distg
-CALCULO DE COMISIONES VENDEDORES
+calculate com.
