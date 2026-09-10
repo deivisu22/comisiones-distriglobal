@@ -1,2 +1,2 @@
-# comisiones-distriglobal
+# com-distg
 CALCULO DE COMISIONES VENDEDORES
