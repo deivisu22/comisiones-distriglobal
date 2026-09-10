@@ -27,7 +27,6 @@
     .mono { font-family: 'JetBrains Mono', monospace; }
     .grotesk { font-family: 'Space Grotesk', sans-serif; }
 
-    /* Top Navigation */
     header.nav-top {
       background: var(--primary);
       color: #fff;
@@ -59,12 +58,10 @@
     .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
     .nav-btn.active { color: #fff; background: var(--accent); }
 
-    /* Layout Main */
     .container { max-width: 1280px; margin: 28px auto; padding: 0 24px; }
     .section-page { display: none; }
     .section-page.active { display: block; }
 
-    /* Cards & Layout Grid */
     .grid-2 { display: grid; grid-template-columns: 1fr 400px; gap: 24px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     
@@ -81,14 +78,12 @@
     }
     .card-title { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
 
-    /* Forms & Inputs */
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
     .in { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; background: #fff; }
     .in:focus { outline: none; border-color: var(--accent); }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    /* Payment Badges */
     .pay-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -102,27 +97,26 @@
     .pay-usd { background: #e0f2fe; color: #0369a1; }
     .pay-bs { background: #fef3c7; color: #b45309; }
 
-    /* Dynamic Tables */
     .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .data-table th { background: #f1f5f9; text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
     .data-table td { padding: 12px; border-bottom: 1px solid var(--border); }
     .data-table tr:hover { background: #fafafa; }
+    
+    /* Estilo para los títulos de cada categoría en la tabla */
+    .cat-header { background: #0f172a; color: #fff; font-weight: 700; font-size: 12px; text-transform: uppercase; }
 
-    /* Buttons */
     .btn { padding: 10px 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 13px; }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { background: #1d4ed8; }
     .btn-danger { background: #ef4444; color: #fff; }
     .btn-outline { background: transparent; border: 1px solid var(--border); }
 
-    /* Stats KPI */
     .kpi-box { padding: 16px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); }
     .kpi-val { font-size: 24px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-top: 4px; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <header class="nav-top">
     <div class="brand">
       <div>
@@ -131,16 +125,16 @@
       </div>
     </div>
     <nav class="nav-tabs">
-      <button class="nav-btn active" onclick="showPage('page-calc')">Calculadora</button>
-      <button class="nav-btn" onclick="showPage('page-products')">Matriz de Productos</button>
-      <button class="nav-btn" onclick="showPage('page-history')">Historial & Pagos</button>
-      <button class="nav-btn" onclick="showPage('page-config')">GitHub / Data</button>
+      <button class="nav-btn active" onclick="showPage('page-calc', this)">Calculadora</button>
+      <button class="nav-btn" onclick="showPage('page-products', this)">Matriz de Productos</button>
+      <button class="nav-btn" onclick="showPage('page-history', this)">Historial & Pagos</button>
+      <button class="nav-btn" onclick="showPage('page-config', this)">GitHub / Data</button>
     </nav>
   </header>
 
   <div class="container">
 
-    <!-- PAGE 1: CALCULADORA Y REGISTRO -->
+    <!-- PAGE 1: CALCULADORA -->
     <div id="page-calc" class="section-page active">
       <div class="grid-2">
         <div>
@@ -166,7 +160,7 @@
             <div class="form-group">
               <label>Seleccionar Producto de la Matriz</label>
               <select class="in" id="selectProdMatriz" onchange="applyProductMatriz()">
-                <!-- Opciones dinámicas -->
+                <!-- Opciones dinámicas agrupadas generadas por JS -->
               </select>
             </div>
 
@@ -206,7 +200,6 @@
           </div>
         </div>
 
-        <!-- Sidebar Resumen -->
         <div>
           <div class="card" style="position:sticky; top:84px;">
             <div class="card-title">Cálculo de Liquidación</div>
@@ -239,12 +232,12 @@
       </div>
     </div>
 
-    <!-- PAGE 2: MATRIZ DINÁMICA DE PRODUCTOS -->
+    <!-- PAGE 2: MATRIZ DE PRODUCTOS -->
     <div id="page-products" class="section-page">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
           <div class="card-title" style="margin:0;">Matriz Dinámica de Productos y Descuentos</div>
-          <button class="btn btn-primary" onclick="promptAddProduct()">+ Agregar Producto</button>
+          <button class="btn btn-primary" onclick="promptAddProduct()">+ Agregar Producto Manual</button>
         </div>
 
         <table class="data-table">
@@ -264,7 +257,7 @@
       </div>
     </div>
 
-    <!-- PAGE 3: HISTORIAL & MÉTODOS DE PAGO -->
+    <!-- PAGE 3: HISTORIAL -->
     <div id="page-history" class="section-page">
       <div class="grid-3" style="margin-bottom:20px;">
         <div class="kpi-box">
@@ -296,23 +289,20 @@
             </tr>
           </thead>
           <tbody id="tblHistorialBody">
-            <!-- Renderizado dinámico -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- PAGE 4: CONFIGURACIÓN / GITHUB -->
+    <!-- PAGE 4: CONFIGURACIÓN -->
     <div id="page-config" class="section-page">
       <div class="card">
         <div class="card-title">Conexión GitHub & Respaldos</div>
         <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
           Puedes exportar tus registros en formato JSON para subirlos a tu repositorio de GitHub, o guardar el proyecto para desplegarlo en **GitHub Pages**.
         </p>
-
         <div style="display:flex; gap:12px;">
           <button class="btn btn-primary" onclick="exportDataJSON()">Exportar Copia de Seguridad (JSON)</button>
-          <button class="btn btn-outline" onclick="importDataJSON()">Cargar Copia de Seguridad</button>
           <button class="btn btn-danger" onclick="clearAllStorage()">Restablecer Base de Datos Local</button>
         </div>
       </div>
@@ -321,26 +311,661 @@
   </div>
 
   <script>
-    // Estado inicial de la matriz de productos
-    let matrizProductos = JSON.parse(localStorage.getItem('dg_matriz')) || [
-      { id: 1, name: 'Línea Esmaltes (Especial)', desc: 35, com: 5 },
-      { id: 2, name: 'Línea Esmaltes (Volumen)', desc: 40, com: 4 },
-      { id: 3, name: 'Mercancía General', desc: 20, com: 5 },
-      { id: 4, name: 'Línea Promocional / Oferta', desc: 50, com: 3 }
+    // 1. Mapeo de Categorías
+    const catMap = {
+      'M': 'Mercancía General',
+      'E': 'Línea Esmaltes (Especial)',
+      'V': 'Línea Esmaltes (Volumen)',
+      'P': 'Línea Promocional / Oferta'
+    };
+
+    const arrayCategorias = [
+      'Línea Esmaltes (Especial)', 
+      'Línea Esmaltes (Volumen)', 
+      'Línea Promocional / Oferta', 
+      'Mercancía General',
+      'Personalizados'
     ];
 
-    // Historial de ventas
+    // 2. Base de datos comprimida extraída del archivo PRODUCTOS TODOS_2.XLS (611 registros)
+    const rawExcelData = `013M|TEIPE 3M 165|M|0|4
+014M|TEIPE DE TELA TESA 3/4 X 25 MTS|M|0|4
+0153M|EMPAQUE LIJA DE AGUA 3M grano #1500  X 50 UNID|M|0|4
+015M|LIJA DE AGUA 3M grano #1500|M|0|4
+0163M|EMPAQUE LIJA DE AGUA 3M grano # 2000 X 50 UNID|M|0|4
+016M|LIJA DE AGUA 3M grano # 2000|M|0|4
+017M|LIJA DE AGUA 3M grano # 80|M|0|4
+019M|LIJA DE AGUA 3M grano #120|M|0|4
+020M|LIJA DE AGUA 3M grano #180|M|0|4
+0213M|EMPAQUE 3M LIJA DE AGUA grano # 80 x 50 UNID|M|0|4
+021M|LIJA DE AGUA 3M grano # 240|M|0|4
+0223M|EMPAQUE 3M LIJA DE AGUA grano # 120 X 50 UNID|M|0|4
+022M|LIJA DE AGUA 3M grano # 320|M|0|4
+0233M|EMPAQUE 3M LIJA DE AGUA grano #120 X 100 UNID|M|0|4
+023M|TIRRO VERDE 3M 401|M|0|4
+0243M|EMPAQUE 3M LIJA DE AGUA grano #180 X 100 UNID|M|0|4
+024M|LIJA DE AGUA 3M grano # 400|M|0|4
+0253M|EMPAQUE 3M LIJA DE AGUA grano# 80 X 100 UNID|M|0|4
+025M|LIJA DE AGUA 3M grano # 600|M|0|4
+0263M|EMPAQUE 3M LIJA DE AGUA grano #180 X 50 UNID|M|0|4
+0273M|EMPAQUE 3M LIJA DE AGUA grano # 240 X 50 UNID|M|0|4
+0283M|EMPAQUE 3M LIJA DE AGUA grano # 240 X 100 UNID|M|0|4
+0293M|EMPAQUE 3M LIJA DE AGUA grano # 320 X 50 UNID|M|0|4
+0303M|EMPAQUE 3M LIJA DE AGUA grano #320 X 100 UNID|M|0|4
+030M|CINTA 3M DOBLE FAZ POLIURETANO 3/4 x 30 MTS|M|0|4
+0313M|EMPAQUE 3M LIJA DE AGUA grano # 400 X 100 UNID|M|0|4
+031M|CINTA 3M DOBLE FAZ POLIURETANO 1/2 x 30 MTS|M|0|4
+0323M|EMPAQUE 3M LIJA DE AGUA grano # 400 X 50 UNID|M|0|4
+032M|CINTA 3M VHB ROJA DOBLE FAZ 1/2  X 32MTS|M|0|4
+033M|EMPAQUE DE TEIPE 3M 33+SCOTCH X 10 UNID|M|0|4
+0373M|EMPAQUE 3M LIJA DE AGUA grano # 600 X 50 UNID|M|0|4
+0383M|EMPAQUE 3M LIJA DE AGUA grano # 600 X 100 UNID|M|0|4
+040M|LIJA ABRASIVA TIPO ESPONJA N° 80|M|0|4
+041M|LIJA ABRASIVA TIPO ESPONJA N° 120|M|0|4
+042M|LIJA ABRASIVA TIPO ESPONJA N° 180|M|0|4
+043M|LIJA ABRASIVA TIPO ESPONJA N° 280|M|0|4
+050M|CAJA PEGAMENTO INSTANTANEO LOCTITE 20 ml X 10 UNID|M|0|4
+PAQ014M|EMPAQUE DE TEIPE DE TELA TESA 3/4 X 25MTS 16U|M|0|4
+T001|CAJA DE TIRRO BEIGE 3M 201 X 12 MM X 55M (72UNID)|M|0|4
+T002|CAJA DE TIRRO BEIGE 3M 201 X 18 MM X 55M (48UNID)|M|0|4
+T003|CAJA DE TIRRO BEIGE 3M 201 X 24 MM X 55M (36UNID)|M|0|4
+T01|TIRRO BEIGE 3M 201 X 12 MM X 55M|M|0|4
+T02|TIRRO BEIGE 3M 201 X 18 MM X 55M|M|0|4
+T03|TIRRO BEIGE 3M 201 X 24 MM X 55M|M|0|4
+TB02|CAJA DE TOMA CORRIENTE LEVITON BLANCO X 10 UNID|M|0|4
+TC01|CAJA DE TOMA CORRIENTE LEVITON BEIGE X 10 UNID|M|0|4
+TP01|TEIPE 3M SCOTCH 23 ENGOMADO|M|0|4
+nan|nan|M|0|4
+2M001|MAXIESMALTE 2EN1 MATE - Blanco cuarto(s)|E|35|5
+2M002|MAXIESMALTE 2EN1 MATE - Negro cuarto(s)|E|35|5
+2M003|MAXIESMALTE 2EN1 MATE - Gris Acero cuarto(s)|E|35|5
+2M101|MAXIESMALTE 2EN1 MATE - Blanco Galon|E|35|5
+2M102|MAXIESMALTE 2EN1 MATE - Negro Galon|E|35|5
+2M103|MAXIESMALTE 2EN1 MATE - Gris Acero Galon|E|35|5
+2S001|MAXIESMALTE 2EN1 SATINADO - Blanco cuarto(s)|V|40|4
+2S002|MAXIESMALTE 2EN1 SATINADO - Negro cuarto(s)|V|40|4
+2S003|MAXIESMALTE 2EN1 SATINADO - Gris Acero cuarto(s)|V|40|4
+2S101|MAXIESMALTE 2EN1 SATINADO - Blanco Galon|V|40|4
+2S102|MAXIESMALTE 2EN1 SATINADO - Negro Galon|V|40|4
+2S103|MAXIESMALTE 2EN1 SATINADO - Gris Acero Galon|V|40|4
+AD001|MAXIALUMINIO - DIFUSO cuarto(s)|V|40|4
+AD101|MAXIALUMINIO ( DIFUSO) galon|V|40|4
+AD102|MAXI-EPOXICA ADUCTO AMINA ALTO SOLIDO - Gris Galon|E|35|5
+AD103|MAXI-EPOXICA ADUCTO AMINA ALTO SOLIDO - Azul Claro Galon|E|35|5
+AD104|MAXIEPOXICA ADUCTO AMINA - AMARILLO|E|35|5
+AD105|MAXIEPOXICA ADUCTO AMINA - NEGRO|E|35|5
+AD501|MAXIALUMINIO ENV METALICO - DIFUSO cuñete|V|40|4
+AF101|MAXIANTIFOULING - Rojo Galon|V|40|4
+AF102|MAXIANTIFOULING - Negro (Especial) Galon|V|40|4
+AM102|MAXIALUMINIO - MANTO Galon|V|40|4
+AM501|MAXIALUMINIO ENV METALICO - MANTO cuñete|V|40|4
+BZ001|BARNIZ BRILLANTE - TRANSPARENTE cuarto(s)|E|35|5
+BZ002|BARNIZ BRILLANTE - CAOBA cuarto(s)|E|35|5
+BZ101|BARNIZ BRILLANTE - TRANSPARENTE Galon|E|35|5
+BZ102|BARNIZ BRILLANTE - CAOBA Galon|E|35|5
+CC101|MAXICAUCHO - Blanco Galon|V|40|4
+CC102|MAXICAUCHO - Blanco Ostra Galon|V|40|4
+CC103|MAXICAUCHO - Melocoton Galon|V|40|4
+CC104|MAXICAUCHO - Marfil Galon|V|40|4
+CC105|MAXICAUCHO - Azul Mar Galon|V|40|4
+CC106|MAXICAUCHO - Lila.... Galon|V|40|4
+CC108|MAXICAUCHO - Ocre Galon|V|40|4
+CC109|MAXICAUCHO - Naranja Tropical Galon|V|40|4
+CC111|MAXICAUCHO - Amarillo Lirio Galon|V|40|4
+CC112|MAXICAUCHO - Trigo Dorado Galon|V|40|4
+CC114|MAXICAUCHO - rojoLadrillo Galon|V|40|4
+CC116|MAXICAUCHO - Rosado Galon|V|40|4
+CC117|MAXICAUCHO - Verde Manzano Galon|V|40|4
+CC118|MAXICAUCHO - Marfil Arena Galon|V|40|4
+CC120|MAXICAUCHO - Azul Pacifico Galon|V|40|4
+CC121|MAXICAUCHO - Gris Cemento Galon|V|40|4
+CC122|MAXICAUCHO - Salmon Galon|V|40|4
+CC123|MAXICAUCHO - Verde Primavera Galon|V|40|4
+CC124|MAXICAUCHO - Guayaba Galon|V|40|4
+CC125|MAXICAUCHO - AZUL CRISTAL Galon|V|40|4
+CC126|MAXICAUCHO - Gris Platino Galon|V|40|4
+CC127|MAXICAUCHO - Gris Ceniza Galon|V|40|4
+CC201|MAXICAUCHO PAILAS - Blanco|V|40|4
+CC401|MAXICAUCHO - Blanco cuñete|V|40|4
+CC402|MAXICAUCHO - Blanco Ostra cuñete|V|40|4
+CC403|MAXICAUCHO - Melocoton cuñete|V|40|4
+CC404|MAXICAUCHO - Marfil cuñete|V|40|4
+CC405|MAXICAUCHO - Azul Mar cuñete|V|40|4
+CC408|MAXICAUCHO - Ocre cuñete|V|40|4
+CC409|MAXICAUCHO - Naranja Tropical cuñete|V|40|4
+CC411|MAXICAUCHO - Amarillo Lirio cuñete|V|40|4
+CC412|MAXICAUCHO - Trigo Dorado cuñete|V|40|4
+CC413|MAXICAUCHO - Lila cuñete|V|40|4
+CC414|MAXICAUCHO - rojoLadrillo cuñete|V|40|4
+CC416|MAXICAUCHO - Rosado cuñete|V|40|4
+CC417|MAXICAUCHO - Verde Manzano cuñete|V|40|4
+CC418|MAXICAUCHO - Marfil Arena cuñete|V|40|4
+CC419|MAXICAUCHO - Turquesa Tropical cuñete|V|40|4
+CC420|MAXICAUCHO - Azul Pacifico cuñete|V|40|4
+CC421|MAXICAUCHO - Gris Cemento cuñete|V|40|4
+CC422|MAXICAUCHO - Salmon cuñete|V|40|4
+CC423|MAXICAUCHO - Verde Primavera cuñete|V|40|4
+CC424|MAXICAUCHO - Guayaba cuñete|V|40|4
+CC425|MAXICAUCHO - AZUL CRISTAL cuñete|V|40|4
+CC426|MAXICAUCHO - Gris Platino cuñete|V|40|4
+CC427|MAXICAUCHO - Gris Ceniza cuñete|V|40|4
+CL101|MAXIESMALTE CAUCHO CLORADO - Blanco Galon|V|40|4
+CL102|MAXIESMALTE CAUCHO CLORADO - Azul Claro Galon|V|40|4
+CL103|MAXIESMALTE CAUCHO CLORADO - Turquesa (especial) Galon|V|40|4
+CN102|MAXICANCHA - Rojo Galon|V|40|4
+CN103|MAXICANCHA - Gris Galon|V|40|4
+CN104|MAXICANCHA - Azul Claro Galon|V|40|4
+CN105|MAXICANCHA - Azul Oscuro Galon|V|40|4
+CN106|MAXICANCHA - AMARILLO Galon|V|40|4
+CN107|MAXICANCHA - Blanco Galon|V|40|4
+CN401|MAXICANCHA - Verde cuñete|V|40|4
+CN402|MAXICANCHA - Rojo cuñete|V|40|4
+CN403|MAXICANCHA - Gris cuñete|V|40|4
+CN404|MAXICANCHA - Azul Claro cuñete|V|40|4
+CN405|MAXICANCHA - Azul Oscuro cuñete|V|40|4
+CN406|MAXICANCHA - AMARILLO cuñete|V|40|4
+CN407|MAXICANCHA - Blanco cuñete|V|40|4
+CP101|COINPICA CAUCHO - Blanco Galon|V|40|4
+CP102|COINPICA CAUCHO - Marfil Galon|V|40|4
+CP103|COINPICA CAUCHO - Azul Mar Galon|V|40|4
+CP105|COINPICA CAUCHO - Rosado Galon|V|40|4
+CP106|COINPICA CAUCHO - Lila galon|V|40|4
+CP117|COINPICA CAUCHO - Verde Manzano galon|V|40|4
+CP118|COINPICA CAUCHO - Marfil arena galon|V|40|4
+CP119|COINPICA CAUCHO - Turquesa tropical galon|V|40|4
+CP123|COINPICA CAUCHO - Verde Primavera galon|V|40|4
+CP125|COINPICA CAUCHO - Azul Cristal galon|V|40|4
+CP126|COINPICA CAUCHO - Gris Platino galon|V|40|4
+CP401|COINPICA CAUCHO - Blanco cuñete|V|40|4
+CP402|COINPICA CAUCHO - Marfil Cuñete|V|40|4
+CP403|COINPICA CAUCHO - Azul Mar Cuñete|V|40|4
+CP405|COINPICA CAUCHO - Rosado Cuñete|V|40|4
+CP406|COINPICA CAUCHO - Lila Cuñete|V|40|4
+CP417|COINPICA CAUCHO - Verde Manzano Cuñete|V|40|4
+CP418|COINPICA CAUCHO - MARFIL ARENA CUÑETE|V|40|4
+CP419|COINPICA CAUCHO - Turquesa Cuñete|V|40|4
+CP426|COINPICA CAUCHO - Gris Platino Cuñete|V|40|4
+CP523|COINPICA CAUCHO - Verde Primavera Cuñete|V|40|4
+CPM101|COINPICA PREMIUM - Blanco Galon|V|40|4
+CPM102|COINPICA PREMIUM - Negro Galon|V|40|4
+CPM103|COINPICA PREMIUM - Concreto Galon|V|40|4
+CPM104|COINPICA PREMIUM - Marfil Galon|V|40|4
+CPM105|COINPICA PREMIUM - Girasol Galon|V|40|4
+CPM106|COINPICA PREMIUM - Azul Marino Galon|V|40|4
+CPM107|COINPICA PREMIUM - Verde Grama Galon|V|40|4
+CPM108|COINPICA PREMIUM - Naranja Galon|V|40|4
+CPM109|COINPICA PREMIUM - Blanco Tiza Galon|V|40|4
+CPM110|COINPICA PREMIUM - Ladrillo Galon|V|40|4
+CPM111|COINPICA PREMIUM - Lima Galon|V|40|4
+CPM112|COINPICA PREMIUM - Azul Cielo Galon|V|40|4
+CPM401|COINPICA PREMIUM - Blanco Cuñete|V|40|4
+CPM402|COINPICA PREMIUM - Negro Cuñete|V|40|4
+CPM403|COINPICA PREMIUM - Concreto Cuñete|V|40|4
+CPM404|COINPICA PREMIUM - Marfil Cuñete|V|40|4
+CPM405|COINPICA PREMIUM - Girasol Cuñete|V|40|4
+CPM406|COINPICA PREMIUM - Azul Marino Cuñete|V|40|4
+CPM407|COINPICA PREMIUM - Verde Grama Cuñete|V|40|4
+CPM408|COINPICA PREMIUM - Naranja Cuñete|V|40|4
+CPM409|COINPICA PREMIUM - Blanco Tiza Cuñete|V|40|4
+CPM410|COINPICA PREMIUM - Ladrillo Cuñete|V|40|4
+CPM412|COINPICA PREMIUM - Azul Cielo Cuñete|V|40|4
+CS101|MAXISEDA - Blanco Galon|V|40|4
+CS102|MAXISEDA - VAINILLA GALON|V|40|4
+CS103|MAXISEDA - Melocoton Galon|V|40|4
+CS104|MAXISEDA - Marfil Galon|V|40|4
+CS105|MAXISEDA - ROSA CARMIN Galon|V|40|4
+CS106|MAXISEDA - AZUL CRISTAL Galon|V|40|4
+CS108|MAXISEDA - NARANJA Galon|V|40|4
+CS110|MAXISEDA - VERDE LIMA Galon|V|40|4
+CS112|MAXISEDA - TREBOL Galon|V|40|4
+CS114|MAXISEDA - AGUA MAR Galon|V|40|4
+CS116|MAXISEDA - Lila Galon|V|40|4
+CS117|MAXISEDA - ORQUIDEA Galon|V|40|4
+CS118|MAXISEDA - AZUL CELESTE Galon|V|40|4
+CS122|MAXISEDA - TURQUESA Galon|V|40|4
+CS123|MAXISEDA - CHAMPAÑA Galon|V|40|4
+CS124|MAXISEDA - GRIS MONACO Galon|V|40|4
+CS126|MAXISEDA - BLUEGRAY GALON|V|40|4
+CS127|MAXISEDA - PERLA GALON|V|40|4
+CS401|MAXISEDA - Blanco cuñete|V|40|4
+CS403|MAXISEDA - Melocoton cuñete|V|40|4
+CS404|MAXISEDA - Marfil cuñete|V|40|4
+CS405|MAXISEDA - ROSA CARMIN cuñete|V|40|4
+CS406|MAXISEDA - AZUL CRISTAL cuñete|V|40|4
+CS408|MAXISEDA - NARANJA cuñete|V|40|4
+CS410|MAXISEDA - VERDE LIMA cuñete|V|40|4
+CS412|MAXISEDA - TREBOL cuñete|V|40|4
+CS414|MAXISEDA - AGUA MAR cuñete|V|40|4
+CS416|MAXISEDA - Lila cuñete|V|40|4
+CS417|MAXISEDA - ORQUIDEA cuñete|V|40|4
+CS418|MAXISEDA - AZUL CELESTE cuñete|V|40|4
+CS422|MAXISEDA - TURQUESA cuñete|V|40|4
+CS423|MAXISEDA - CHAMPAÑA cuñete|V|40|4
+CS424|MAXISEDA - GRIS MONACO cuñete|V|40|4
+CS426|MAXISEDA - BLUEGRAY CUÑETE|V|40|4
+CV101|MAXIVINILICA - Blanco Galon|V|40|4
+CV102|MAXIVINILICA - TURQUESA Galon|V|40|4
+CV103|MAXIVINILICA - AMARILLO MEDANO Galon|V|40|4
+CV104|MAXIVINILICA - Marfil Suave Galon|V|40|4
+CV105|MAXIVINILICA - Blanco Ostra Galon|V|40|4
+CV106|MAXIVINILICA - Gris Galon|V|40|4
+CV107|MAXIVINILICA - Verde Manzano Galon|V|40|4
+CV108|MAXIVINILICA - NARANJA Galon|V|40|4
+CV109|MAXIVINILICA - Marfil Rafia Galon|V|40|4
+CV110|MAXIVINILICA - Rojo Bandera Galon|V|40|4
+CV111|MAXIVINILICA (GRIS OLIVO) galon|V|40|4
+CV112|MAXIVINILICA (FUCSIA) galon|V|40|4
+CV113|MAXIVINILICA (AZUL HORIZONTE) galon|V|40|4
+CV114|MAXIVINILICA Limon galon|V|40|4
+CV115|MAVINILICA AMARILLO GIRASOL galon|V|40|4
+CV117|MAXIVINILICA - Greige Galon|V|40|4
+CV119|MAXIVINILICA - AMAZONAS Galon|V|40|4
+CV120|MAXIVINILICA - Gris Plata Galon|V|40|4
+CV121|MAXIVINILICA - VAINILLA GALON|V|40|4
+CV201|MAXIVINILICA PAILAS (BLANCO)|V|40|4
+CV401|MAXIVINILICA - Blanco cuñete|V|40|4
+CV402|MAXIVINILICA - TURQUESA cuñete|V|40|4
+CV403|MAXIVINILICA - AMARILLO MEDANO cuñete|V|40|4
+CV404|MAXIVINILICA - Marfil Suave cuñete|V|40|4
+CV405|MAXIVINILICA - Blanco Ostra cuñete|V|40|4
+CV406|MAXIVINILICA - Gris cuñete|V|40|4
+CV407|MAXIVINILICA - Verde Manzana cuñete|V|40|4
+CV408|MAXIVINILICA - NARANJA cuñete|V|40|4
+CV409|MAXIVINILICA - MARFIL RAFIA cuñete|V|40|4
+CV410|MAXIVINILICA - Rojo Bandera cuñete|V|40|4
+CV412|MAXIVINILICA (FUCSIA) CUÑETE|V|40|4
+CV413|MAXIVINILICA - AZUL HORIZONTE CUÑETE|V|40|4
+CV414|MAXIVINILICA - Rojo (Especial) cuñete|V|40|4
+CV415|MAXIVINILICA AMARILLO GIRASOL cuñete|V|40|4
+CV416|MAXIVINILICA Gris Olivo Cuñete|V|40|4
+CV417|MAVINILICA Limon cuñete|V|40|4
+CV418|MAXIVINILICA GREIGE CUÑETE|V|40|4
+CV419|MAXIVINILICA - AMAZONAS CUÑETE|V|40|4
+CV420|MAXIVINILICA - VAINILLA CUÑETE|V|40|4
+CV421|MAXIVINILICA - GRIS PLATA CUÑETE|V|40|4
+CZ001|CROMATO - ZINC cuarto(s)|V|40|4
+CZ101|CROMATO - ZINC Galon|V|40|4
+nan|nan|V|40|4
+EB001|MAXIESMALTE BRILLANTE - Blanco cuarto(s)|P|20|4
+EB002|MAXIESMALTE BRILLANTE - Negro cuarto(s)|P|20|4
+EB003|MAXIESMALTE BRILLANTE - AMARILLO cuarto(s)|P|20|4
+EB004|MAXIESMALTE BRILLANTE - Marfil cuarto(s)|P|20|4
+EB005|MAXIESMALTE BRILLANTE - Rojo cuarto(s)|P|20|4
+EB006|MAXIESMALTE BRILLANTE - VERDE OSCURO cuarto(s)|P|20|4
+EB007|MAXIESMALTE BRILLANTE - Azul Claro cuarto(s)|P|20|4
+EB008|MAXIESMALTE BRILLANTE - Azul Oscuro cuarto(s)|P|20|4
+EB009|MAXIESMALTE BRILLANTE - MARRON cuarto(s)|P|20|4
+EB010|MAXIESMALTE BRILLANTE - AVELLANA cuarto(s)|P|20|4
+EB011|MAXIESMALTE BRILLANTE - CAOBA cuarto(s)|P|20|4
+EB012|MAXIESMALTE BRILLANTE - Blanco Ostra cuarto(s)|P|20|4
+EB013|MAXIESMALTE BRILLANTE - GRIS CLARO cuarto(s)|P|20|4
+EB015|MAXIESMALTE BRILLANTE - TURQUESA cuarto(s)|P|20|4
+EB016|MAXIESMALTE BRILLANTE - CANELA cuarto(s)|P|20|4
+EB017|MAXIESMALTE BRILLANTE - VERDE TILO cuarto(s)|P|20|4
+EB018|MAXIESMALTE BRILLANTE - NARANJA cuarto(s)|P|20|4
+EB019|MAXIESMALTE BRILLANTE - AMARILLO CATERPILLAR cuarto(s)|P|20|4
+EB024|MAXIESMALTE BRILLANTE - Gris Acero cuarto(s)|P|20|4
+EB025|MAXIESMALTE BRILLANTE - GRIS MACHETE cuarto(s)|P|20|4
+EB101|MAXIESMALTE BRILLANTE - Blanco Galon|P|20|4
+EB102|MAXIESMALTE BRILLANTE - Negro Galon|P|20|4
+EB103|MAXIESMALTE BRILLANTE - AMARILLO Galon|P|20|4
+EB104|MAXIESMALTE BRILLANTE - Marfil Galon|P|20|4
+EB105|MAXIESMALTE BRILLANTE - Rojo Galon|P|20|4
+EB106|MAXIESMALTE BRILLANTE - VERDE OSCURO Galon|P|20|4
+EB107|MAXIESMALTE BRILLANTE - Azul Claro Galon|P|20|4
+EB108|MAXIESMALTE BRILLANTE - Azul Oscuro Galon|P|20|4
+EB109|MAXIESMALTE BRILLANTE - MARRON Galon|P|20|4
+EB110|MAXIESMALTE BRILLANTE - AVELLANA Galon|P|20|4
+EB111|MAXIESMALTE BRILLANTE - CAOBA Galon|P|20|4
+EB112|MAXIESMALTE BRILLANTE - Blanco Ostra Galon|P|20|4
+EB113|MAXIESMALTE BRILLANTE - GRIS CLARO Galon|P|20|4
+EB115|MAXIESMALTE BRILLANTE - TURQUESA Galon|P|20|4
+EB116|MAXIESMALTE BRILLANTE - CANELA Galon|P|20|4
+EB117|MAXIESMALTE BRILLANTE - VERDE TILO Galon|P|20|4
+EB118|MAXIESMALTE BRILLANTE - NARANJA Galon|P|20|4
+EB119|MAXIESMALTE BRILLANTE - AMARILLO CATTEPILLAR Galon|P|20|4
+EB124|MAXIESMALTE BRILLANTE - Gris Acero Galon|P|20|4
+EB125|MAXIESMALTE BRILLANTE - GRIS MACHETE Galon|P|20|4
+nan|nan|P|20|4
+EC001|MAXIESMALTE COINPICA - ORO CUARTO|V|40|4
+EC002|MAXIESMALTE COINPICA - PLATA CUARTO|V|40|4
+EC003|MAXIESMALTE COINPICA - BRONCE CUARTO|V|40|4
+EC004|MAXIESMALTE COINPICA - Oro Palido CUARTO|V|40|4
+EC005|MAXIESMALTE COINPICA - LILA CUARTO|V|40|4
+EC101|MAXIESMALTE COINPICA - ORO GALON|V|40|4
+EC102|MAXIESMALTE COINPICA - PLATA GALON|V|40|4
+EC103|MAXIESMALTE COINPICA - BRONCE GALON|V|40|4
+EC104|MAXIESMALTE COINPICA - LILA GALON|V|40|4
+ED101|MAXIEPOXICA ADUCTO AMINA blanco|E|35|5
+EL101|IMPERMEABILIZANTE ELASTOFLEX - Verde Galon|V|40|4
+EL102|IMPERMEABILIZANTE ELASTOFLEX - Rojo Galon|V|40|4
+EL103|IMPERMEABILIZANTE ELASTOFLEX - Gris Galon|V|40|4
+EL104|IMPERMEABILIZANTE ELASTOFLEX - Blanco Galon|V|40|4
+EL401|IMPERMEABILIZANTE ELASTOFLEX - Verde cuñete|V|40|4
+EL402|IMPERMEABILIZANTE ELASTOFLEX - Rojo cuñete|V|40|4
+EL403|IMPERMEABILIZANTE ELASTOFLEX - Gris cuñete|V|40|4
+EL404|IMPERMEABILIZANTE ELASTOFLEX - Blanco cuñete|V|40|4
+nan|nan|V|40|4
+EM001|MAXIESMALTE MATE - Blanco cuarto(s)|P|20|4
+EM002|MAXIESMALTE MATE - Negro cuarto(s)|P|20|4
+EM101|MAXIESMALTE MATE - Blanco Galon|P|20|4
+EM102|MAXIESMALTE MATE - Negro Galon|P|20|4
+EM103|MAXIESMALTE MATE - Gris(Especial) Galon|P|20|4
+ES002|MAXIESMALTE SATINADO - Blanco cuarto(s)|P|20|4
+ES101|MAXIESMALTE SATINADO - Blanco Galon|P|20|4
+ES102|MAXIESMALTE SATINADO - Negro Galon|P|20|4
+ESN002|MAXIESMALTE SATINADO - Negro cuarto(s)|P|20|4
+nan|nan|P|20|4
+EX101|MAXI-EPOXICA - Blanco Galon|E|35|5
+EX102|MAXI-EPOXICA - Negro Galon|E|35|5
+EX103|MAXI-EPOXICA - AMARILLO Galon|E|35|5
+EX104|MAXI-EPOXICA - Gris Galon|E|35|5
+EX105|MAXI-EPOXICA - Rojo Galon|E|35|5
+EX106|MAXI-EPOXICA - Verde Galon|E|35|5
+EX107|MAXI-EPOXICA - Azul Claro Galon|E|35|5
+EX108|MAXI-EPOXICA - Azul Oscuro Galon|E|35|5
+EX109|MAXIEPOXICA - NARANJA (GALON)|E|35|5
+EX604|MAXI-EPOXICA INCLUYE POLIAMIDA - Gris Tambor|E|35|5
+FA101|MAXI-ANTIALCALINO - Blanco Galon|V|40|4
+FA102|MAXI-ANTIALCALINO - TRANSPARENTE Galon|V|40|4
+FA401|MAXI-ANTIALCALINO - Blanco cuñete|V|40|4
+FA402|MAXI-ANTIALCALINO - TRANSPARENTE cuñete|V|40|4
+FHU401|MAXI-FONDO PAREDES HUMEDAS - Blanco cuñete|V|40|4
+FM001|MaxiFondo Minio Naranja - Cuarto|V|40|4
+FM101|MaxiFondo Minio Naranja - Galon|V|40|4
+FM401|MaxiFondo Minio Naranja - Cuñete|V|40|4
+FP002|MAXIFONDO DE HERRERIA - Negro cuarto(s)|V|40|4
+FP003|MAXIFONDO DE HERRERIA - Gris cuarto(s)|V|40|4
+FP004|MAXIFONDO DE HERRERIA - Rojo cuarto(s)|V|40|4
+FP101|MAXIFONDO DE HERRERIA - Blanco Galon|V|40|4
+FP102|MAXIFONDO DE HERRERIA - Negro Galon|V|40|4
+FP103|MAXIFONDO DE HERRERIA - Gris Galon|V|40|4
+FP104|MAXIFONDO DE HERRERIA - Rojo Galon|V|40|4
+FP404|MAXI-FONDO DE HERRERIA ENV  METAL - Rojo cuñete|V|40|4
+FP501|MAXI-FONDO DE HERRERIA ENV  METAL - Blanco cuñete|V|40|4
+FP502|MAXI-FONDO DE HERRERIA ENV  METAL - Negro cuñete|V|40|4
+FU101|MAXI-FONDO PAREDES HUMEDAS - Blanco Galon|V|40|4
+FX101|MAXI-FONDOEPOXICA - Blanco Galon|E|35|5
+FX102|MAXI-FONDOEPOXICA - Negro Galon|E|35|5
+FX103|MAXI-FONDOEPOXICA - Rojo Galon|E|35|5
+FX104|MAXI-FONDOEPOXICA - Gris Galon|E|35|5
+FX105|MAXI-FONDOEPOXICA - RICO ZINC Galon|E|35|5
+IP101|MAXIMPERMEABILIZANTE - Verde Galon|V|40|4
+IP102|MAXIMPERMEABILIZANTE - Rojo Galon|V|40|4
+IP103|MAXIMPERMEABILIZANTE - Gris Galon|V|40|4
+IP104|MAXIMPERMEABILIZANTE - AZUL Galon|V|40|4
+IP105|MAXIMPERMEABILIZANTE - Blanco Galon|V|40|4
+IP401|MAXIMPERMEABILIZANTE - Verde cuñete|V|40|4
+IP402|MAXIMPERMEABILIZANTE - Rojo cuñete|V|40|4
+IP403|MAXIMPERMEABILIZANTE - Gris cuñete|V|40|4
+IP404|MAXIMPERMEABILIZANTE - AZUL cuñete|V|40|4
+IP405|MAXIMPERMEABILIZANTE - Blanco cuñete|V|40|4
+IP406|MAXIMPERMEABILIZANTE - Negro cuñete|V|40|4
+ME101|MAXIEXTERIOR - Blanco Galon|V|40|4
+ME102|MAXIEXTERIOR - Desierto Galon|V|40|4
+ME103|MAXIEXTERIOR - Amarillo Tostado Galon|V|40|4
+ME104|MAXIEXTERIOR - Cedro Galon|V|40|4
+ME105|MAXIEXTERIOR - Azul Oceano Galon|V|40|4
+ME106|MAXIEXTERIOR - Malaga Galon|V|40|4
+ME107|MAXIEXTERIOR - Palma Galon|V|40|4
+ME108|MAXIEXTERIOR - Nocturno Galon|V|40|4
+ME109|MAXIEXTERIOR - Niebla Galon|V|40|4
+ME110|MAXIEXTERIOR - Negro Galon|V|40|4
+ME111|MAXIEXTERIOR - Rojo Bandera Galon|V|40|4
+ME401|MAXIEXTERIOR - Blanco cuñete|V|40|4
+ME402|MAXIEXTERIOR - Desierto cuñete|V|40|4
+ME403|MAXIEXTERIOR - Amarillo Tostado cuñete|V|40|4
+ME404|MAXIEXTERIOR - Cedro cuñete|V|40|4
+ME405|MAXIEXTERIOR - Azul Oceano cuñete|V|40|4
+ME406|MAXIEXTERIOR - Malaga cuñete|V|40|4
+ME407|MAXIEXTERIOR - Palma cuñete|V|40|4
+ME408|MAXIEXTERIOR - Nocturno cuñete|V|40|4
+ME409|MAXIEXTERIOR - Niebla cuñete|V|40|4
+ME410|MAXIEXTERIOR - Negro cuñete|V|40|4
+ME411|MAXIEXTERIOR - Rojo Bandera cuñete|V|40|4
+MEP101|MAXIEXTERIOR - Verde (Preparado) Galon|V|40|4
+MEP401|MAXIEXTERIOR - Verde (Preparado) cuñete|V|40|4
+MEP402|MAXIEXTERIOR - Salmon cuñete|V|40|4
+MEP403|MAXIEXTERIOR - Verde Menta (preparad cuñete|V|40|4
+MEP404|MAXIEXTERIOR - Marfil Rafia (Prepara cuñete|V|40|4
+PA001|MAXIPASTA - Blanco cuarto(s)|V|40|4
+PA101|MAXIPASTA - Blanco Galon|V|40|4
+PA401|MAXIPASTA - Blanco cuñete|V|40|4
+PP101|MAXIPREMIUM - Blanco Galon|V|40|4
+PP102|MAXIPREMIUM - Negro Galon|V|40|4
+PP103|MAXIPREMIUM - GRIS CONCRETO Galon|V|40|4
+PP104|MAXIPREMIUM - Marfil Galon|V|40|4
+PP105|MAXIPREMIUM - AMARILLO GIRASOL Galon|V|40|4
+PP106|MAXIPREMIUM - AZUL MARINO Galon|V|40|4
+PP107|MAXIPREMIUM - VERDE ESMERALDA Galon|V|40|4
+PP108|MAXIPREMIUM - NARANJA Galon|V|40|4
+PP109|MAXIPREMIUM - OSTRA CLARO Galon|V|40|4
+PP110|MAXIPREMIUM - ROJO TEJA Galon|V|40|4
+PP111|MAXIPREMIUM - AZUL REY Galon|V|40|4
+PP112|MAXIPREMIUM - Verde Lima (Especial) Galon|V|40|4
+PP113|MAXIPREMIUM - Granadina (Especial) Galon|V|40|4
+PP114|MAXIPREMIUM - Verde Aceituna (Espec Galon|V|40|4
+PP115|MAXIPREMIUM - Rojo (Especial) Galon|V|40|4
+PP116|MAXIPREMIUM - Mandarina (Especial) Galon|V|40|4
+PP119|MAXIPREMIUM - Turquesa (especial) galon|V|40|4
+PP120|MAXIPREMIUM - Greige galon|V|40|4
+PP121|MAXIPREMIUM - Plata galon|V|40|4
+PP122|MAXIPREMIUM - CIELO Galon|V|40|4
+PP123|MAXIPREMIUM - CARAMELO GALON|V|40|4
+PP124|MAXIPREMIUM - BLANCO TIZA GALON|V|40|4
+PP125|MAXIPREMIUM - CORAL GALON|V|40|4
+PP126|MAXIPREMIUM - ORQUIDEA GALON|V|40|4
+PP401|MAXIPREMIUM - Blanco cuñete|V|40|4
+PP402|MAXIPREMIUM - NEGRO cuñete|V|40|4
+PP403|MAXIPREMIUM - GRIS CONCRETO cuñete|V|40|4
+PP404|MAXIPREMIUM - Marfil cuñete|V|40|4
+PP405|MAXIPREMIUM - AMARILLO GIRASOL cuñete|V|40|4
+PP406|MAXIPREMIUM - AZUL MARINO cuñete|V|40|4
+PP407|MAXIPREMIUM - VERDE ESMERALDA cuñete|V|40|4
+PP408|MAXIPREMIUM - NARANJA cuñete|V|40|4
+PP409|MAXIPREMIUM - OSTRA CLARO cuñete|V|40|4
+PP410|MAXIPREMIUM - ROJO TEJA cuñete|V|40|4
+PP411|MAXIPREMIUM - AZUL REY cuñete|V|40|4
+PP412|MAXIPREMIUM - Verde Lima (Especial cuñete|V|40|4
+PP413|MAXIPREMIUM - Granadina (Especial) cuñete|V|40|4
+PP414|MAXIPREMIUM - Verde Aceituna (Espec cuñete|V|40|4
+PP415|MAXIPREMIUM - Rojo (Especial) cuñete|V|40|4
+PP416|MAXIPREMIUM - Mandarina (Especial) cuñete|V|40|4
+PP419|MAXIPREMIUM - TURQUESA CUÑETE|V|40|4
+PP421|MAXIPREMIUM - Plata Cuñete|V|40|4
+PP422|MAXIPREMIUM - CIELO Cuñete|V|40|4
+PP423|MAXIPREMIUM - CARAMELO CUÑETE|V|40|4
+PP424|MAXIPREMIUM - BLANCO TIZA CUÑETE|V|40|4
+PP425|MAXIPREMIUM - CORAL CUÑETE|V|40|4
+PP426|MAXIPREMIUM - ORQUIDEA CUÑETE|V|40|4
+SP101|COINPICA SATINADO - Blanco galon|V|40|4
+SP102|COINPICA SATINADO - Melocoton galon|V|40|4
+SP103|COINPICA SATINADO - Marfil galon|V|40|4
+SP104|COINPICA SATINADO - Turquesa galon|V|40|4
+SP105|COINPICA SATINADO- Azul cristal galon|V|40|4
+SP106|COINPICA SATINADO- Agua Mar galon|V|40|4
+SP107|COINPICA SATINADO - Lila galon|V|40|4
+SP108|COINPICA SATINADO - Gris Monaco galon|V|40|4
+SP109|COINPICA SATINADO - Azul celeste galon|V|40|4
+SP110|COINPICA SATINADO - Rosa carmin galon|V|40|4
+SP111|COINPICA SATINADO - Champaña galon|V|40|4
+SP401|COINPICA SATINADO - Blanco Cuñete|V|40|4
+SR001|MAXIESMALTE BRILLANTE SECADO RAPIDO - Blanco cuarto(s)|E|35|5
+SR002|MAXIESMALTE BRILLANTE SECADO RAPIDO - Negro cuarto(s)|E|35|5
+SR003|MAXIESMALTE BRILLANTE SECADO RAPIDO - Gris Acero cuarto(s)|E|35|5
+SR101|MAXIESMALTE SECADO RAPIDO BRILLANTE - Blanco Galon|E|35|5
+SR102|MAXIESMALTE SECADO RAPIDO BRILLANTE - Negro Galon|E|35|5
+SR103|MAXIESMALTE SECADO RAPIDO BRILLANTE - Gris Acero Galon|E|35|5
+ST101|MAXISATINADO - Blanco Galon|V|40|4
+ST102|MAXISATINADO - Carmin Galon|V|40|4
+ST103|MAXISATINADO - Vainilla Galon|V|40|4
+ST104|MAXISATINADO - Arena Galon|V|40|4
+ST105|MAXISATINADO - Amarillo Olimpic Galon|V|40|4
+ST106|MAXISATINADO - Oro Galon|V|40|4
+ST107|MAXISATINADO - Ostra Galon|V|40|4
+ST108|MAXISATINADO - Gris Suave Galon|V|40|4
+ST109|MAXISATINADO - Brisas del Mar Galon|V|40|4
+ST110|MAXISATINADO - Cafe Galon|V|40|4
+ST111|MAXISATINADO - Negro Galon|V|40|4
+ST401|MAXISATINADO - Blanco cuñete|V|40|4
+ST402|MAXISATINADO - Carmin cuñete|V|40|4
+ST403|MAXISATINADO - Vainilla cuñete|V|40|4
+ST404|MAXISATINADO - Arena cuñete|V|40|4
+ST405|MAXISATINADO - Amarillo Olimpic cuñete|V|40|4
+ST406|MAXISATINADO - Oro cuñete|V|40|4
+ST407|MAXISATINADO - Ostra cuñete|V|40|4
+ST408|MAXISATINADO - Gris Suave cuñete|V|40|4
+ST409|MAXISATINADO - Brisas del Mar cuñete|V|40|4
+ST410|MAXISATINADO - Cafe cuñete|V|40|4
+ST411|MAXISATINADO - Negro cuñete|V|40|4
+TB101|MAXITRAFICO BROCAL - Blanco Galon|V|40|4
+TB102|MAXITRAFICO BROCAL - AMARILLO Galon|V|40|4
+TB103|MAXITRAFICO BROCAL - NEGRO Galon|V|40|4
+TB104|MAXITRAFICO BROCAL - Rojo Galon|V|40|4
+TB401|MAXITRAFICO BROCAL - Blanco cuñete|V|40|4
+TB402|MAXITRAFICO BROCAL - AMARILLO cuñete|V|40|4
+TB403|MAXITRAFICO BROCAL - Negro cuñete|V|40|4
+TB404|MAXITRAFICO BROCAL - Rojo cuñete|V|40|4
+TB405|MAXITRAFICO BROCAL - Gris cuñete|V|40|4
+TN101|MAXITEXTURIZADO INTERIOR - Blanco Galon|V|40|4
+TN102|MAXITEXTURIZADO INTERIOR - Galon|V|40|4
+TN401|MAXITEXTURIZADO INTERIOR BLANCO CUÑETE|V|40|4
+TX401|MAXITEXTURIZADO EXTERIOR - Blanco cuñete|V|40|4
+TP101|MAXITRAFICO DEMARACION SOLVENTE C/P REFLECTIVO ENV METAL - AMARILLO Galon|V|40|4
+TP102|MAXITRAFICO DEMARACION SOLVENTE C/P REFLECTIVO ENV METAL -  Blanco- Galon|V|40|4
+TP501|MAXITRAFICO DEMARACION SOLVENTE C/P REFLECTIVO ENV METAL - Blanco cuñete|V|40|4
+TP502|MAXITRAFICO DEMARACION SOLVENTE C/P REFLECTIVO ENV METAL - AMARILLO cuñete|V|40|4
+TP505|MAXITRAFICO DEMARACION SOLVENTE C/P REFLECTIVO ENV METAL - Gris cuñete|V|40|4
+TS101|MAXITRAFICO DEMARCACION SOLVENTE S/P ENV METAL - Blanco Galon|V|40|4
+TS102|MAXITRAFICO DEMARCACION SOLVENTE S/P ENV METAL - AMARILLO Galon|V|40|4
+TS501|MAXITRAFICO SOLVENTE S/P ENV METAL - Blanco cuñete|V|40|4
+TS502|MAXITRAFICO SOLVENTE S/P ENV METAL - AMARILLO cuñete|V|40|4
+TS504|MAXITRAFICO SOLVENTE S/P ENV METAL - Rojo cuñete|V|40|4
+TS505|MAXITRAFICO SOLVENTE S/P ENV METAL - Gris cuñete|V|40|4
+TS506|MAXITRAFICO SOLVENTE S/P ENV METAL - Negro cuñete|V|40|4
+TX101|MAXITEXTURIZADO EXTERIOR - Blanco Galon|V|40|4
+TX401|MAXITEXTURIZADO EXTERIOR - Blanco cuñete|V|40|4
+TX402|MAXITEXTURIZADO EXTERIOR - Arena cuñete|V|40|4
+TX403|MAXITEXTURIZADO EXTERIOR - Gris cuñete|V|40|4
+TX404|MAXITEXTURIZADO EXTERIOR - Blanco Ostra cuñete|V|40|4
+nan|nan|V|40|4
+A0025-10|THINNER MULTIUSO LITRO|M|0|4
+A0025-11|THINNER MULTIUSO GALON|M|0|4
+0150601891|MALLA REFUERZO 15 CM.X 25 M|M|0|4
+0150601894|MALLA REFUERZO 1,10 x 50 m (1)|M|0|4
+0150603246|MALLA REFUERZO 1,00 X 100 M. (1)|M|0|4
+01550601893|MALLA REFUERZO 1,10 X 25M. (1)|M|0|4
+345641891|MALLA 1.10 X 100 M|M|0|4
+M001|MALLA 1,20x10MTS|M|0|4
+M002|MALLA 1,20x25MTS|M|0|4
+M003|MALLA 1,20x50MTS|M|0|4
+M004|MALLA 1,20x100 MTS|M|0|4
+17010|BROCHA J-700 DE 1\"|M|0|4
+17020|BROCHA J-700 DE 2\"|M|0|4
+17030|EMPAQUE BROCHA J-700 DE 3\" X 24 UNIDADES|M|0|4
+17040|EMPAQUE BROCHA J-700 DE 4\" X 12 UNIDADES|M|0|4
+20017|MINI FUNDA GOMA ESPUMA 2\"|M|0|4
+20018|MINI FUNDA GOMA ESPUMA 3\"|M|0|4
+20019|MINI FUNDA GOMA ESPUMA 4\"|M|0|4
+20058|MINI KIT BROCHA 1/2 Y MINI F.3\"|M|0|4
+20106|RODILLO MINI MANGO 2\"3\"4\"|M|0|4
+20111|RODILLO METALICO 9\"|M|0|4
+20130|FUNDA TEXTURIZADA ECONOMICA|M|0|4
+20154|KIT DE PROMOCION 9\"|M|0|4
+20160|FUNDAS THERMOFUSION 9\" P/C|M|0|4
+20161|FUNDAS THERMOFUSION 9\" P/M|M|0|4
+20164|FUNDA EPOXI PM 9\"|M|0|4
+20165|FUNDA MICRO FIBRA ANTI GOTEO|M|0|4
+20166|FUNDA EPOXI P/M 4\"|M|0|4
+20204|FUNDAS THERMOFUSION P/C \"4X|M|0|4
+20205|FUNDAS THERMOFUSION P/M 4X14|M|0|4
+20207|FUNDA THERMOFUSION 4\" PL|M|0|4
+20210|FUNDA ALFOMBRA PELO MEDIO 9\"|M|0|4
+20407|RODILLO MANGO METALICO 4\"|M|0|4
+A001|PEGAMENTO AKIGLUE 1/4|M|0|4
+A101|PEGAMENTO AKIGLUE GLN|M|0|4
+PA111|PRODUCTOS AVERIADOS|M|0|4
+200-015|DESTAPA CUÑETE|M|0|4
+SP400-001|SPRAY PAINT 400ML - BLANCO MATE|M|0|4
+SP400-002|SPRAY PAINT 400ML - BLANCO BRILLANTE|M|0|4
+SP400-006|SPRAY PAINT 400ML - VERDE|M|0|4
+SP400-007|SPRAY PAINT 400ML - VERDE SELVA|M|0|4
+SP400-008|SPRAY PAINT 400ML - AMARILLO CANARIO|M|0|4
+SP400-009|SPRAY PAINT 400ML - AMARILLO PROFUNDO|M|0|4
+SP400-010|SPRAY PAINT 400ML - AZUL CIELO|M|0|4
+SP400-011|SPRAY PAINT 400ML - AZUL CIELO CLARO|M|0|4
+SP400-012|SPRAY PAINT 400ML - AZUL FUTION|M|0|4
+SP400-013|SPRAY PAINT 400ML - AZUL DIAMANTE|M|0|4
+SP400-015|SPRAY PAINT 400ML - GRIS PLATA|M|0|4
+SP400-018|SPRAY PAINT 400ML - PINK ROSADO|M|0|4
+SP400-019|SPRAY PAINT 400ML - GOLDEN|M|0|4
+SP400-020|SPRAY PAINT 400ML - LACA TRANSPARENTE|M|0|4
+SP400-021|SPRAY PAINT 400ML - ROJO ALTA TEMPERATURA|M|0|4
+SP400-14|SPRAY PAINT 400ML - SILVER (PLATEADO)|M|0|4
+V008-110V|PROTECTOR DE VOLTAJE DE 3 TMAS 120V|M|0|4
+V009-110V|PROTECTOR DE VOLTAJE PARA REFRIGERADOR|M|0|4
+V010-120V|PROTECTOR DE VOLTAJE 120V|M|0|4
+V010-220V|PROTECTOR DE VOLTAJE 220V|M|0|4
+V015-120V|PROTECTOR CABLE A CABLE 110V|M|0|4
+V015-220|PROTECTOR CABLE A CABLE 220V|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+nan|nan|M|0|4
+Licencia de Uso: DISTRIBUIDORA GLOBAL,CA     Serial: 267316-0774-2338-0490-448498|nan|M|0|4`;
+
+    // 3. Convertir el texto base a objetos JS
+    const baseProductos = rawExcelData.trim().split('\n').map(row => {
+      const [id, name, catCode, desc, com] = row.split('|');
+      return { 
+        id, 
+        name, 
+        cat: catMap[catCode], 
+        desc: Number(desc), 
+        com: Number(com),
+        isBase: true
+      };
+    });
+
+    // 4. Cargar productos manuales y el historial guardado por el usuario
+    let customProductos = JSON.parse(localStorage.getItem('dg_matriz_custom')) || [];
+    let matrizProductos = [...baseProductos, ...customProductos];
     let historialVentas = JSON.parse(localStorage.getItem('dg_ventas')) || [];
 
-    // Cambiar Navegación
-    function showPage(pageId) {
+    // Cambiar de pestañas en la app
+    function showPage(pageId, btnElement) {
       document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
-      event.target.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
     }
 
-    // Inicializar app
     function init() {
       renderMatrizSelect();
       renderMatrizTable();
@@ -348,18 +973,27 @@
       calculate();
     }
 
-    // Renderizar Selector de Matriz
+    // Selector: Renderizado con optgroups por categoría
     function renderMatrizSelect() {
       const sel = document.getElementById('selectProdMatriz');
       sel.innerHTML = '<option value="">-- Seleccionar de la Matriz --</option>';
-      matrizProductos.forEach(p => {
-        sel.innerHTML += `<option value="${p.id}">${p.name} (Desc: ${p.desc}% | Com: ${p.com}%)</option>`;
+      
+      arrayCategorias.forEach(cat => {
+        const prods = matrizProductos.filter(p => p.cat === cat);
+        if (prods.length > 0) {
+          let optGroup = `<optgroup label="${cat}">`;
+          prods.forEach(p => {
+            optGroup += `<option value="${p.id}">${p.id} - ${p.name} (Desc: ${p.desc}% | Com: ${p.com}%)</option>`;
+          });
+          optGroup += `</optgroup>`;
+          sel.innerHTML += optGroup;
+        }
       });
     }
 
     function applyProductMatriz() {
       const id = document.getElementById('selectProdMatriz').value;
-      const item = matrizProductos.find(p => p.id == id);
+      const item = matrizProductos.find(p => String(p.id) === String(id));
       if (item) {
         document.getElementById('pctDescuento').value = item.desc;
         document.getElementById('pctComision').value = item.com;
@@ -445,48 +1079,68 @@
       renderHistorial();
     }
 
-    // Renderizar Tabla de Matriz de Productos
+    // Matriz de Productos Dinámica con Desglose por Categorías
     function renderMatrizTable() {
       const tbody = document.getElementById('tblMatrizBody');
       tbody.innerHTML = '';
-      matrizProductos.forEach((p, index) => {
-        tbody.innerHTML += `
-          <tr>
-            <td class="mono">PROD-00${p.id}</td>
-            <td><b>${p.name}</b></td>
-            <td class="mono">${p.desc}%</td>
-            <td class="mono">${p.com}%</td>
-            <td>
-              <button class="btn btn-outline" onclick="deleteProducto(${index})" style="padding:4px 8px; font-size:11px;">Eliminar</button>
-            </td>
-          </tr>
-        `;
+      
+      arrayCategorias.forEach(cat => {
+        const prods = matrizProductos.filter(p => p.cat === cat);
+        if (prods.length > 0) {
+          // Etiqueta de la agrupación
+          tbody.innerHTML += `
+            <tr>
+              <td colspan="5" class="cat-header">${cat}</td>
+            </tr>
+          `;
+          
+          prods.forEach(p => {
+            let deleteBtn = p.isBase 
+              ? `<span style="color:var(--text-muted); font-size:11px;">N/A (Fijo)</span>`
+              : `<button class="btn btn-outline" onclick="deleteProducto('${p.id}')" style="padding:4px 8px; font-size:11px; border-color:red; color:red;">Eliminar</button>`;
+              
+            tbody.innerHTML += `
+              <tr>
+                <td class="mono">${p.id}</td>
+                <td><b>${p.name}</b></td>
+                <td class="mono">${p.desc}%</td>
+                <td class="mono">${p.com}%</td>
+                <td>${deleteBtn}</td>
+              </tr>
+            `;
+          });
+        }
       });
     }
 
     function promptAddProduct() {
-      const name = prompt('Nombre del Producto / Categoría:');
+      const id = prompt('Código del Producto (Ej: PROD-999):');
+      const name = prompt('Descripción del Producto:');
       const desc = parseFloat(prompt('% Descuento Base:'));
       const com = parseFloat(prompt('% Comisión Asignada:'));
 
-      if (name && !isNaN(desc) && !isNaN(com)) {
-        matrizProductos.push({ id: Date.now(), name, desc, com });
-        localStorage.setItem('dg_matriz', JSON.stringify(matrizProductos));
+      if (id && name && !isNaN(desc) && !isNaN(com)) {
+        const newProd = { id, name, cat: 'Personalizados', desc, com, isBase: false };
+        customProductos.push(newProd);
+        matrizProductos.push(newProd);
+        
+        localStorage.setItem('dg_matriz_custom', JSON.stringify(customProductos));
         renderMatrizTable();
         renderMatrizSelect();
       }
     }
 
-    function deleteProducto(index) {
-      matrizProductos.splice(index, 1);
-      localStorage.setItem('dg_matriz', JSON.stringify(matrizProductos));
+    function deleteProducto(idStr) {
+      customProductos = customProductos.filter(p => String(p.id) !== String(idStr));
+      localStorage.setItem('dg_matriz_custom', JSON.stringify(customProductos));
+      
+      matrizProductos = [...baseProductos, ...customProductos];
       renderMatrizTable();
       renderMatrizSelect();
     }
 
-    // Exportar Datos a JSON
     function exportDataJSON() {
-      const data = { matriz: matrizProductos, ventas: historialVentas };
+      const data = { matriz_custom: customProductos, ventas: historialVentas };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -495,7 +1149,7 @@
     }
 
     function clearAllStorage() {
-      if (confirm('¿Deseas restablecer todos los datos almacenados?')) {
+      if (confirm('¿Deseas restablecer todos los datos almacenados y el historial?')) {
         localStorage.clear();
         location.reload();
       }
